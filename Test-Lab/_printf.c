@@ -178,6 +178,7 @@ int _putstr(char *str)
  *				The 2nd case cals itself to systematicaly
  *				ubundele the number util cale 1 is reached
 */
+
 unsigned int _putdig(unsigned int num, unsigned int base)
 {
 	char *symbolsx;
