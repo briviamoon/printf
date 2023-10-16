@@ -16,30 +16,28 @@ int printer(char formatSpecifier, va_list arg)
 {
 	int count;
 	unsigned int base;
+	int number;
 
 	count = 0;
 	if (formatSpecifier == 'c')
-	{
-		_putchar(va_arg(arg, int));
-		count++;
-	}
+		count += _putchar(va_arg(arg, int));
 	else if (formatSpecifier == 's')
-	{
-		_putstr(va_arg(arg, char *));
-		count++;
-	}
+		count += _putstr(va_arg(arg, char *));
+	else if (formatSpecifier == '%')
+		count += _putchar('%');
 	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
-	{
 		if (va_arg(arg, int) < 0)
 		{
 			count += _putchar('-');
-			count += _putint(va_arg(arg, int));
+			count++;
+			number = va_arg(arg, int);
+			number = -number;
+			count += _putint(number);
 		}
 		else
 		{
 			count += _putint(va_arg(arg, int));
 		}
-	}
 	else if (formatSpecifier == 'x' || formatSpecifier == 'X')
 	{
 		if (formatSpecifier == 'x')
@@ -129,15 +127,26 @@ unsigned int _putdig(unsigned int num, unsigned int base)
 int _putint(int n)
 {
 	int counter = 0;
+	int index = 0;
+	int i;
+	/*buffer: max len of 32 bit int is 10 digits*/
+	char buffer[20];
 
-	if (n >= 10)
+	if (n == 0)
 	{
-		counter += _putint(n / 10);
-		counter += _putint(n % 10);
+		write(1, "0", 1);
+		counter++;
 		return (counter);
 	}
-	else
+
+	while (n > 0)
 	{
-		return (_putchar('0' + n));
+		buffer[index++] = '0' + (n % 10);
+		n /= 10;
 	}
+	for (i = index - 1; i >= 0; i--)
+	{
+		write(1, &buffer[i], 1);
+	}
+	return (counter);
 }
