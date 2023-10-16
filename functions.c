@@ -20,11 +20,13 @@ int printer(char formatSpecifier, va_list arg)
 	count = 0;
 	if (formatSpecifier == 'c')
 	{
-		count = _putchar(va_arg(arg, int));
+		_putchar(va_arg(arg, int));
+		count++;
 	}
 	else if (formatSpecifier == 's')
 	{
-		count = _putstr(va_arg(arg, char *));
+		_putstr(va_arg(arg, char *));
+		count++;
 	}
 	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
 	{
