@@ -72,14 +72,14 @@ int _putchar(int c)
  */
 int _putstr(char *str)
 {
-	int final;
+	int count = 0;
 
-	final = 0;
 	while (*str)
 	{
-		final += write(1, str++, 1);
+		count += write(1, str, 1);
+		str++;
 	}
-	return (final);
+	return (count);
 }
 
 /**
@@ -99,53 +99,45 @@ int _putstr(char *str)
 
 unsigned int _putdig(unsigned int num, unsigned int base)
 {
-	char *symbolsx;
-	char *symbolsX;
-	unsigned int counter;
+	char *symbols;
+	int counter = 0;
 
-	/*Base 10 Hex*/
-	symbolsx = "123456789abcdef";
-	/*Base 16 Hex*/
-	symbolsX = "123456789ABCDEF";
+	symbols = "123456789ABCDEF";
 
 	if (num < base)
 	{
-		if (base < 10)
-		{
-			return (_putchar(symbolsx[num]));
-		}
-		else
-		{
-			return (_putchar(symbolsX[num]));
-		}
+		counter += _putchar(symbols[num]);
+		return (counter);
 	}
 	else
 	{
-		counter = _putdig(num / base, base);
-		return (counter + _putdig(num % base, base));
+		counter += _putdig(num / base, base);
+		counter += _putdig(num % base, base);
+		return (counter);
 	}
 }
 
 /**
  * _putint - formats an intager
  * @n: unsigned int
- * Return: value of final int
+ * Return: value of final int bytes
  *
  * Description: This a recursive function
  *				breaks down argument parsed to write out an Intager
  *				if the argument > 10
  */
-int _putint(unsigned int n)
+int _putint(int n)
 {
-	int counter;
+	int counter = 0;
 
-	if (n > 10)
+	if (n >= 10)
 	{
-		counter = _putint(n / 10);
-		return (counter + _putint(n % 10));
+		counter += _putint(n / 10);
+		counter += _putint(n % 10);
+		return (counter);
 	}
 	else
 	{
-		return (write(1, &n, 1));
+		return (_putchar('0' + n));
 	}
 }
