@@ -49,7 +49,7 @@ int main(void)
 /**
  * _printf - works like printf
  * @format: the pointer to the line of argiments
- * 
+ *
  * Description: the function checks for an argument
  *				then cheks if the character following the argument
  *				is a % sign. If it is, then it callt on the.
@@ -169,7 +169,7 @@ int _putstr(char *str)
  * @num: uns int representation oh Hex
  * @base: base of the hex {10 || 16}
  * Return: value from function calls
- * 
+ *
  * Description: The function I recursive
  *				in case 1 it evaluates if base > num
  *				If this is true, it calls on putchar
@@ -192,7 +192,7 @@ unsigned int _putdig(unsigned int num, unsigned int base)
 
 	if (num < base)
 	{
-		if(base < 10)
+		if (base < 10)
 		{
 			return (_putchar(symbolsx[num]));
 		}
@@ -212,7 +212,7 @@ unsigned int _putdig(unsigned int num, unsigned int base)
  * _putint - formats an intager
  * @n: unsigned int
  * Return: value of final int
- * 
+ *
  * Description: This a recursive function
  *				breaks down argument parsed to write out an Intager
  *				if the argument > 10
@@ -220,6 +220,7 @@ unsigned int _putdig(unsigned int num, unsigned int base)
 int _putint(unsigned int n)
 {
 	int counter;
+
 	if (n > 10)
 	{
 		counter = _putint(n / 10);
