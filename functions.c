@@ -20,13 +20,15 @@ int printer(char formatSpecifier, va_list arg)
 	count = 0;
 	if (formatSpecifier == 'c')
 	{
-		_putchar(va_arg(arg, int));
-		count++;
+		count += _putchar(va_arg(arg, int));
 	}
 	else if (formatSpecifier == 's')
 	{
-		_putstr(va_arg(arg, char *));
-		count++;
+		count += _putstr(va_arg(arg, char *));
+	}
+	else if (formatSpecifier == '%')
+	{
+		count += _putchar('%');
 	}
 	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
 	{
