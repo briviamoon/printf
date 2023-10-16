@@ -32,12 +32,12 @@ int printer(char formatSpecifier, va_list arg)
 	{
 		if (va_arg(arg, int) < 0)
 		{
-			count = _putchar('-');
+			count += _putchar('-');
 			count += _putint(va_arg(arg, int));
 		}
 		else
 		{
-			count = _putint(va_arg(arg, int));
+			count += _putint(va_arg(arg, int));
 		}
 	}
 	else if (formatSpecifier == 'x' || formatSpecifier == 'X')
