@@ -20,22 +20,24 @@ int printer(char formatSpecifier, va_list arg)
 	count = 0;
 	if (formatSpecifier == 'c')
 	{
-		count = _putchar(va_arg(arg, int));
+		_putchar(va_arg(arg, int));
+		count++;
 	}
 	else if (formatSpecifier == 's')
 	{
-		count = _putstr(va_arg(arg, char *));
+		_putstr(va_arg(arg, char *));
+		count++;
 	}
 	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
 	{
 		if (va_arg(arg, int) < 0)
 		{
-			count = _putchar('-');
+			count += _putchar('-');
 			count += _putint(va_arg(arg, int));
 		}
 		else
 		{
-			count = _putint(va_arg(arg, int));
+			count += _putint(va_arg(arg, int));
 		}
 	}
 	else if (formatSpecifier == 'x' || formatSpecifier == 'X')
