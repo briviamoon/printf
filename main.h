@@ -11,6 +11,6 @@ int _printf(const char *format, ...);
 int printer(char formartSpecifier, va_list arg);
 unsigned int _putdig(unsigned int num, unsigned int base);
 int _putstr(char *str);
-int _putint(unsigned int n);
+int _putint(int n);
 
 #endif
