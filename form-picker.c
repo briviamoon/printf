@@ -21,7 +21,8 @@ int printer(char formatSpecifier, va_list arg)
 		{_putint, 'd'},
 		{_putint, 'i'},
 		{_putchar, 'c'},
-		{_putui, 'u',}
+		{_putui, 'u',},
+		{_putstr, 's'},
 	};
 
 	count = 0;
