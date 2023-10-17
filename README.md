@@ -53,5 +53,31 @@ You don’t have to handle field width
 You don’t have to handle precision
 You don’t have to handle the length modifiers
 
+#TASK 1
+1. Education is when you read the fine print. Experience is what you get if you don't
+mandatory
+Handle the following conversion specifiers:
+
+d
+i
+You don’t have to handle the flag characters
+You don’t have to handle field width
+You don’t have to handle precision
+You don’t have to handle the length modifiers
+
+#To create a C function that handles the specified conversion specifiers without considering flag characters, field width, precision, or length modifiers, you can implement a simplified version of the printf function. The code below focuses on handling %d and %i format specifiers. It uses variable arguments and the standard output stream to print the formatted output.
+
 # In the spirit of Collaboration, Happy Coding
+
+#TASK 2
+2. With a face like mine, I do better in print
+#advanced
+Handle the following custom conversion specifiers:
+
+b: the unsigned int argument is converted to binary
+
+#
+To handle a custom conversion specifier %b that converts an unsigned integer argument to binary, you can extend the previous code and add this new functionality
+
+you need to make to the "write_format" function to handle the "%b" format specifier. To start, you'll need to add a new case to the "switch" statement that handles the new format specifier.
 
