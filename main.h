@@ -6,11 +6,26 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <limits.h>
-int _putchar(int c);
-int _printf(const char *format, ...);
+
+/*format picking function*/
 int printer(char formartSpecifier, va_list arg);
-unsigned int _putdig(unsigned int num, unsigned int base);
-int _putstr(char *str);
-int _putint(int n);
+
+/*formating functions*/
+int _putchar(va_list arg);
+int _printf(const char *format, ...);
+int _putdig(va_list arg);
+int _putstr(va_list arg);
+int _putint(va_list arg);
+int _putui(va_list arg);
+
+/*auxilary functions*/
+int realdig(int num);
+int realchar(int c);
+
+typedef struct FunctionFormats
+{
+	int (*function)(va_list);
+	char specifierLEtter;
+} FunctionFormats;
 
 #endif
