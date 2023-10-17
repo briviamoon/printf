@@ -1,62 +1,27 @@
 #include "main.h"
 
 /**
- * printer - this is format selector function.
- * @formatSpecifier: this is the s, c, d ...
- * @arg: This is the list of arguments passed.
- * Return: the value fom the called function.
- * Description: The function choosed a function
- *				that formats output depending on the specifier
- *				I chooses using "ar_arg" whether to pas a type
- *				to a specific funcion as per the specifier.
- *				Not theat During arg passing to the {...}
- *				types are promoted eg char becomes an Int.
- */
-int printer(char formatSpecifier, va_list arg)
-{
-	int count;
-	unsigned int base;
-
-	count = 0;
-	if (formatSpecifier == 'c')
-		count += _putchar(va_arg(arg, int));
-	else if (formatSpecifier == 's')
-		count += _putstr(va_arg(arg, char *));
-	else if (formatSpecifier == '%')
-		count += _putchar('%');
-	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
-		count += _putint(va_arg(arg, int));
-	else if (formatSpecifier == 'x' || formatSpecifier == 'X')
-	{
-		if (formatSpecifier == 'x')
-			base = 10;
-		else if (formatSpecifier == 'X')
-			base = 16;
-		count = _putdig((va_arg(arg, unsigned int)), base);
-	}
-	else
-		count += write(1, &formatSpecifier, 1);
-	return (count);
-}
-
-/**
  * _putchar - formats a char
- * @c: character promoted to an int
+ * @arg: list of va_arg list.
  * Return: number of bytes writen to stdout
  */
-int _putchar(int c)
+int _putchar(va_list arg)
 {
+	char c;
+
+	c = va_arg(arg, int);
 	return (write(1, &c, 1));
 }
 
 /**
  * _putstr - formats a string
- * @str: pointer to string
+ * @arg: list of var_arg list.
  * Return: bytes used in stdout
  */
-int _putstr(char *str)
+int _putstr(va_list arg)
 {
 	int count = 0;
+	char *str = va_arg(arg, char *);
 
 	while (*str)
 	{
@@ -68,8 +33,7 @@ int _putstr(char *str)
 
 /**
  * _putdig - formats Hexes on base 10 and 16
- * @num: uns int representation oh Hex
- * @base: base of the hex {10 || 16}
+ * @arg: list of arg_list.
  * Return: value from function calls
  *
  * Description: The function I recursive
@@ -81,47 +45,75 @@ int _putstr(char *str)
  *				ubundele the number util cale 1 is reached
  */
 
-unsigned int _putdig(unsigned int num, unsigned int base)
+int _putdig(va_list arg)
 {
-	char *symbols;
+	char *symbols = NULL;
 	int counter = 0;
+	int num, base;
+	long unsigned int i;
 
-	symbols = "123456789ABCDEF";
+
+	FunctionFormats Formatfunctions[] = {
+		{_putdig, 'x'},
+		{_putdig, 'X'},
+		{_putui, 'u'},
+	};
+
+	for (i = 0; i < sizeof(Formatfunctions) / sizeof(Formatfunctions[0]); i++)
+	{
+		if (Formatfunctions[i].specifierLEtter == 'x')
+		{
+			base = 16;
+			symbols = "123456789abcdef";
+		}
+		else if (Formatfunctions[i].specifierLEtter == 'X')
+		{
+			base = 16;
+			symbols = "123456789ABCDEF";
+		}
+		else
+		{
+			base = 10;
+			symbols = "0123456789";
+		}
+	}
+
+	num = va_arg(arg, unsigned int);
 
 	if (num < base)
 	{
-		counter += _putchar(symbols[num]);
+		counter += realchar(symbols[num]);
 		return (counter);
 	}
 	else
 	{
-		counter += _putdig(num / base, base);
-		counter += _putdig(num % base, base);
+		counter += realdig(num / base);
+		counter += realdig(num % base);
 		return (counter);
 	}
 }
 
 /**
  * _putint - formats an intager
- * @num: unsigned int
+ * @arg: list of va_arg list.
  * Return: value of final int bytes
  *
  * Description: This a recursive function
  *				breaks down argument parsed to write out an Intager
  *				if the argument > 10
  */
-int _putint(int num)
+
+int _putint(va_list arg)
 {
+	int num;
 	int count = 0;
-	int temp;
-	int digits;
-	int digit;
-	int divisor;
+	int temp, digits, digit, divisor;
 	int i, j;
 
+	num = va_arg(arg, int);
 	if (num < 0)
 	{
-		_putchar('-');
+		realchar('-');
 		count++;
 		num = -num;
 	}
@@ -141,7 +133,50 @@ int _putint(int num)
 			divisor *= 10;
 		}
 		digit = (temp / divisor) % 10;
-		_putchar('0' + digit);
+		realchar('0' + digit);
+		count++;
+	}
+	return (count);
+}
+
+/**
+ * putui - formats unsigned int
+ * @arg: argument list
+ * Return: byte count
+*/
+
+int _putui(va_list arg)
+{
+	int num;
+	int count = 0;
+	int temp, digits, digit, divisor;
+	int i, j;
+
+	num = va_arg(arg, int);
+
+	if (num < 0)
+	{
+		num = num * -1;
+	}
+
+	temp = num;
+	digits = 0;
+
+	while (temp > 0)
+	{
+		temp /= 10;
+		digits++;
+	}
+	temp = num;
+	for (i = 0; i < digits; i++)
+	{
+		divisor = 1;
+		for (j = i + 1; j < digits; j++)
+		{
+			divisor *= 10;
+		}
+		digit = (temp / divisor) % 10;
+		realchar('0' + digit);
 		count++;
 	}
 	return (count);
