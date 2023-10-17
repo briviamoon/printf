@@ -16,13 +16,12 @@
 
 void int_to_binary(uint32_t num)
 {
-    if (num == 0) 
-    {
-        putchar('0');
-        return;
-    }
-
-    int binary[32];
+       	if (num == 0)
+}
+	putchar('0');
+	return;
+{
+int binary[32];
     int index = 0;
 
     while (num > 0) 
@@ -59,29 +58,29 @@ int custom_printf(const char *format, ...)
                     int num = va_arg(args, int);
                     char_count += printf("%d", num);
                     break;
+		    {
+			    case 'b';
+		    }
+	    uint32_t num = va_arg(args, uint32_t);
+	    int_to_binary(num);
+	    char_count += 32;
+	    break;
                 }
-                case 'b':
-		{
-                    uint32_t num = va_arg(args, uint32_t);
-                    int_to_binary(num);
-                    char_count += 32;
-                    break;
-                }
-                default:
+		default:
 		char_count += write(1, "%", 1);
-		    char_count += write(1, format, 1);
+		char_count += write(1, format, 1);
             }
         }
-        format++;
+	format++;
     }
     va_end(args);
     return char_count;
 }
 int main()
 {
-    int num = 42;
-    uint32_t bin = 18;
-    custom_printf("This is a number in binary: %b\n", bin);
-    custom_printf("Another number: %i\n", num);
-    return 0;
+       	int num = 42;
+	uint32_t bin = 18;
+	custom_printf("This is a number in binary: %b\n", bin);
+	custom_printf("Another number: %i\n", num);
+	return 0;
 }
