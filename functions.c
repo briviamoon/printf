@@ -25,7 +25,8 @@ int _putstr(va_list arg)
 
 	while (*str)
 	{
-		count += write(1, str, 1);
+		write(1, str, 1);
+		count++;
 		str++;
 	}
 	return (count);
@@ -48,7 +49,7 @@ int _putstr(va_list arg)
 int _putdig(va_list arg)
 {
 	char *symbols = NULL;
-	int counter = 0;
+	int count = 0;
 	int num, base;
 	unsigned int i;
 	FunctionFormats Formatfunctions[] = {
@@ -78,14 +79,14 @@ int _putdig(va_list arg)
 	num = va_arg(arg, unsigned int);
 	if (num < base)
 	{
-		counter += realchar(symbols[num]);
+		count += realchar(symbols[num]);
 	}
 	else
 	{
-		counter += realdig(num / base);
-		counter += realdig(num % base);
+		count += realdig(num / base);
+		count += realdig(num % base);
 	}
-		return (counter);
+		return (count);
 }
 
 /**
