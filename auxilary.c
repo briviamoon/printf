@@ -43,14 +43,13 @@ int realdig(int num)
 	if (num < base)
 	{
 		counter += realchar(symbols[num]);
-		return (counter);
 	}
 	else
 	{
 		counter += realdig(num / base);
 		counter += realdig(num % base);
-		return (counter);
 	}
+	return (counter);
 }
 
 /**
