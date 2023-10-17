@@ -16,7 +16,6 @@ int printer(char formatSpecifier, va_list arg)
 {
 	int count;
 	unsigned int base;
-	int number;
 
 	count = 0;
 	if (formatSpecifier == 'c')
@@ -26,18 +25,7 @@ int printer(char formatSpecifier, va_list arg)
 	else if (formatSpecifier == '%')
 		count += _putchar('%');
 	else if (formatSpecifier == 'i' || formatSpecifier == 'd')
-		if (va_arg(arg, int) < 0)
-		{
-			count += _putchar('-');
-			count++;
-			number = va_arg(arg, int);
-			number = -number;
-			count += _putint(number);
-		}
-		else
-		{
-			count += _putint(va_arg(arg, int));
-		}
+		count += _putint(va_arg(arg, int));
 	else if (formatSpecifier == 'x' || formatSpecifier == 'X')
 	{
 		if (formatSpecifier == 'x')
@@ -47,9 +35,7 @@ int printer(char formatSpecifier, va_list arg)
 		count = _putdig((va_arg(arg, unsigned int)), base);
 	}
 	else
-	{
 		count += write(1, &formatSpecifier, 1);
-	}
 	return (count);
 }
 
@@ -117,36 +103,46 @@ unsigned int _putdig(unsigned int num, unsigned int base)
 
 /**
  * _putint - formats an intager
- * @n: unsigned int
+ * @num: unsigned int
  * Return: value of final int bytes
  *
  * Description: This a recursive function
  *				breaks down argument parsed to write out an Intager
  *				if the argument > 10
  */
-int _putint(int n)
+int _putint(int num)
 {
-	int counter = 0;
-	int index = 0;
-	int i;
-	/*buffer: max len of 32 bit int is 10 digits*/
-	char buffer[20];
+	int count = 0;
+	int temp;
+	int digits;
+	int digit;
+	int divisor;
+	int i, j;
 
-	if (n == 0)
+	if (num < 0)
 	{
-		write(1, "0", 1);
-		counter++;
-		return (counter);
+		_putchar('-');
+		count++;
+		num = -num;
 	}
-
-	while (n > 0)
+	temp = num;
+	digits = 0;
+	while (temp > 0)
 	{
-		buffer[index++] = '0' + (n % 10);
-		n /= 10;
+		temp /= 10;
+		digits++;
 	}
-	for (i = index - 1; i >= 0; i--)
+	temp = num;
+	for (i = 0; i < digits; i++)
 	{
-		write(1, &buffer[i], 1);
+		divisor = 1;
+		for (j = i + 1; j < digits; j++)
+		{
+			divisor *= 10;
+		}
+		digit = (temp / divisor) % 10;
+		_putchar('0' + digit);
+		count++;
 	}
-	return (counter);
+	return (count);
 }
