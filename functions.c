@@ -51,8 +51,6 @@ int _putdig(va_list arg)
 	int counter = 0;
 	int num, base;
 	long unsigned int i;
-
-
 	FunctionFormats Formatfunctions[] = {
 		{_putdig, 'x'},
 		{_putdig, 'X'},
@@ -77,9 +75,7 @@ int _putdig(va_list arg)
 			symbols = "0123456789";
 		}
 	}
-
 	num = va_arg(arg, unsigned int);
-
 	if (num < base)
 	{
 		counter += realchar(symbols[num]);
@@ -113,8 +109,7 @@ int _putint(va_list arg)
 	num = va_arg(arg, int);
 	if (num < 0)
 	{
-		realchar('-');
-		count++;
+		count += realchar('-');
 		num = -num;
 	}
 	temp = num;
@@ -133,18 +128,17 @@ int _putint(va_list arg)
 			divisor *= 10;
 		}
 		digit = (temp / divisor) % 10;
-		realchar('0' + digit);
-		count++;
+		count += realchar('0' + digit);
 	}
 	return (count);
 }
 
 /**
- * putui - formats unsigned int
+ * _putui - formats unsigned int
  * @arg: argument list
  * Return: byte count
+ * Description: works like putint but respect unsignedness
 */
-
 int _putui(va_list arg)
 {
 	int num;
@@ -176,8 +170,7 @@ int _putui(va_list arg)
 			divisor *= 10;
 		}
 		digit = (temp / divisor) % 10;
-		realchar('0' + digit);
-		count++;
+		count += realchar('0' + digit);
 	}
 	return (count);
 }
