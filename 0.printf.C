@@ -6,9 +6,14 @@
 int _putchar(int c);
 int _printf(const char *format, ...);
 int printer(char formartSpecifier, va_list arg);
-unsigned int _putdig(unsigned int num, unsigned int base);
+int _putdig(unsigned int num, unsigned int base);
 int _putstr(char *str);
 int _putint(unsigned int n);
+/**
+ *myPritnf - works like printf
+ *format - poiner to format arguments
+ *Return - int;
+ */
 
 int main(void)
 {
@@ -46,16 +51,6 @@ int main(void)
 	return (0);
 }
 
-/**
- * _printf - works like printf
- * @format: the pointer to the line of argiments
- *
- * Description: the function checks for an argument
- *				then cheks if the character following the argument
- *				is a % sign. If it is, then it callt on the.
- *				printer function the selects another function
- *				depending on the format specifier.
-*/
 int _printf(const char *format, ...)
 {
 	int count;
@@ -80,18 +75,6 @@ int _printf(const char *format, ...)
 	return (count);
 }
 
-/**
- * printer - this is format selector function.
- * @formatSpecifier: this is the s, c, d ...
- * @arg: This is the list of arguments passed.
- * Return: the value fom the called function.
- * Description: The function choosed a function
- *				that formats output depending on the specifier
- *				I chooses using "ar_arg" whether to pas a type
- *				to a specific funcion as per the specifier.
- *				Not theat During arg passing to the {...}
- *				types are promoted eg char becomes an Int.
-*/
 int printer(char formatSpecifier, va_list arg)
 {
 	int count;
@@ -137,21 +120,11 @@ int printer(char formatSpecifier, va_list arg)
 	return (count);
 }
 
-/**
- * _putchar - formats a char
- * @c: character promoted to an int
- * Return: number of bytes writen to stdout
-*/
 int _putchar(int c)
 {
 	return (write(1, &c, 1));
 }
 
-/**
- * _putstr - formats a string
- * @str: pointer to string
- * Return: bytes used in stdout
-*/
 int _putstr(char *str)
 {
 	int final;
@@ -164,42 +137,16 @@ int _putstr(char *str)
 	return (final);
 }
 
-/**
- * _putdig - formats Hexes on base 10 and 16
- * @num: uns int representation oh Hex
- * @base: base of the hex {10 || 16}
- * Return: value from function calls
- *
- * Description: The function I recursive
- *				in case 1 it evaluates if base > num
- *				If this is true, it calls on putchar
- *				to write the values equivical to the sybols
- *				Onto the stdout.
- *				The 2nd case cals itself to systematicaly
- *				ubundele the number util cale 1 is reached
-*/
-
-unsigned int _putdig(unsigned int num, unsigned int base)
+int _putdig(unsigned int num, unsigned int base)
 {
-	char *symbolsx;
-	char *symbolsX;
-	unsigned int counter;
+	char *symbols;
+	int counter;
 
-	/*Base 10 Hex*/
-	symbolsx = "123456789abcdef";
-	/*Base 16 Hex*/
-	symbolsX = "123456789ABCDEF";
+	symbols = "123456789abcdef";
 
 	if (num < base)
 	{
-		if (base < 10)
-		{
-			return (_putchar(symbolsx[num]));
-		}
-		else
-		{
-		return (_putchar(symbolsX[num]));
-		}
+		return (_putchar(symbols[num]));
 	}
 	else
 	{
@@ -208,19 +155,9 @@ unsigned int _putdig(unsigned int num, unsigned int base)
 	}
 }
 
-/**
- * _putint - formats an intager
- * @n: unsigned int
- * Return: value of final int
- *
- * Description: This a recursive function
- *				breaks down argument parsed to write out an Intager
- *				if the argument > 10
-*/
 int _putint(unsigned int n)
 {
 	int counter;
-
 	if (n > 10)
 	{
 		counter = _putint(n / 10);
