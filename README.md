@@ -57,7 +57,6 @@ You don’t have to handle the length modifiers
 1. Education is when you read the fine print. Experience is what you get if you don't
 mandatory
 Handle the following conversion specifiers:
-
 d
 i
 You don’t have to handle the flag characters
@@ -73,11 +72,8 @@ You don’t have to handle the length modifiers
 2. With a face like mine, I do better in print
 #advanced
 Handle the following custom conversion specifiers:
-
 b: the unsigned int argument is converted to binary
 
-#
-To handle a custom conversion specifier %b that converts an unsigned integer argument to binary, you can extend the previous code and add this new functionality
+#To handle a custom conversion specifier %b that converts an unsigned integer argument to binary, you can extend the previous code and add this new functionality
 
 you need to make to the "write_format" function to handle the "%b" format specifier. To start, you'll need to add a new case to the "switch" statement that handles the new format specifier.
-
