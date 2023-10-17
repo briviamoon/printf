@@ -15,7 +15,7 @@
 int printer(char formatSpecifier, va_list arg)
 {
 	int count;
-	long unsigned int i;
+	unsigned int i;
 
 	FunctionFormats formatFunctions[] = {
 		{_putint, 'd'},

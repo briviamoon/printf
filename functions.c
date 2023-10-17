@@ -50,7 +50,7 @@ int _putdig(va_list arg)
 	char *symbols = NULL;
 	int counter = 0;
 	int num, base;
-	long unsigned int i;
+	unsigned int i;
 	FunctionFormats Formatfunctions[] = {
 		{_putdig, 'x'},
 		{_putdig, 'X'},
@@ -79,14 +79,13 @@ int _putdig(va_list arg)
 	if (num < base)
 	{
 		counter += realchar(symbols[num]);
-		return (counter);
 	}
 	else
 	{
 		counter += realdig(num / base);
 		counter += realdig(num % base);
-		return (counter);
 	}
+		return (counter);
 }
 
 /**
